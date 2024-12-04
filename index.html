@@ -8,7 +8,13 @@
 </head>
 <body>
   <div class="container mt-5">
-    <h1>Crear Usuario</h1>
+    
+    <h3>Usuarios:</h3>
+    <div id="user-cards" class="row">
+      <!-- Aquí se mostrarán las tarjetas -->
+    </div>
+    <br>
+    <h3>Crear Usuario</h3>
     <form id="userForm">
       <div class="form-group">
         <label for="name">Nombre:</label>
@@ -20,10 +26,6 @@
       </div>
       <button type="submit" class="btn btn-primary">Crear Usuario</button>
     </form>
-    <h3>Usuarios:</h3>
-    <div id="user-cards" class="row">
-      <!-- Aquí se mostrarán las tarjetas -->
-    </div>
   </div>
 
   <script>
@@ -42,6 +44,20 @@
       });
       const data = await response.json();
       console.log('Usuario creado:', data);
+      fetchUsers();
+      const userCards = document.getElementById('user-cards');
+        const card = document.createElement('div');
+        card.className = 'col-md-4';
+        card.innerHTML = `
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">${data.name}</h5>
+              <p class="card-text">Email: ${data.email}</p>
+              <p class="card-text">Username: ${data.username}</p>
+            </div>
+          </div>
+        `;
+        userCards.appendChild(card);
       return data; 
     }
 
