@@ -20,7 +20,7 @@ app.post('/users', (req, res) => {
       res.status(500).json({ error: err.message });
       return;
     }
-    res.json({ message: 'User added successfully!' });
+    res.json({ message: 'User creado!' });
   });
 });
 
