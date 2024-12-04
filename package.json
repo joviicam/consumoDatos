@@ -1,0 +1,13 @@
+{
+  "name": "consumoDatos",
+  "version": "1.0.0",
+  "description": "Proyecto para consumo de datos con Node.js y SQLite",
+  "main": "public/server.js",
+  "scripts": {
+    "start": "node public/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite3": "^5.0.2"
+  }
+}
