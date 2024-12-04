@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Information</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row" id="user-cards">
+      <!-- Cards -->
+    </div>
+  </div>
+
+  <script>
+    async function fetchUsers() {
+      const response = await fetch('/users');
+      const data = await response.json();
+      const userCards = document.getElementById('user-cards');
+
+      data.data.forEach(user => {
+        const card = document.createElement('div');
+        card.className = 'col-md-4';
+        card.innerHTML = `
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">${user.name}</h5>
+              <p class="card-text">ID: ${user.id}</p>
+              <a href="#" class="btn btn-primary edit-btn"><i class="fas fa-edit"></i> Edit</a>
+            </div>
+          </div>
+        `;
+        userCards.appendChild(card);
+      });
+    }
+
+    fetchUsers();
+  </script>
+</body>
+</html>
