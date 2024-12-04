@@ -45,20 +45,25 @@
       const data = await response.json();
       console.log('Usuario creado:', data);
       
+      // Añadir el nuevo usuario a la vista sin recargar todos los usuarios
+      addUserToView(data);
+      return data;
+    }
+
+    function addUserToView(user) {
       const userCards = document.getElementById('user-cards');
-        const card = document.createElement('div');
-        card.className = 'col-md-4';
-        card.innerHTML = `
-          <div class="card mb-4">
-            <div class="card-body">
-              <h5 class="card-title">${data.name}</h5>
-              <p class="card-text">Email: ${data.email}</p>
-              <p class="card-text">Username: ${data.username}</p>
-            </div>
+      const card = document.createElement('div');
+      card.className = 'col-md-4';
+      card.innerHTML = `
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">${user.name}</h5>
+            <p class="card-text">Email: ${user.email}</p>
+            <p class="card-text">Username: ${user.username}</p>
           </div>
-        `;
-        userCards.appendChild(card);
-      return data; 
+        </div>
+      `;
+      userCards.appendChild(card);
     }
 
     async function fetchUsers() {
@@ -68,18 +73,7 @@
       userCards.innerHTML = ''; 
 
       data.forEach(user => {
-        const card = document.createElement('div');
-        card.className = 'col-md-4';
-        card.innerHTML = `
-          <div class="card mb-4">
-            <div class="card-body">
-              <h5 class="card-title">${user.name}</h5>
-              <p class="card-text">Email: ${user.email}</p>
-              <p class="card-text">Username: ${user.username}</p>
-            </div>
-          </div>
-        `;
-        userCards.appendChild(card);
+        addUserToView(user);
       });
     }
 
@@ -89,8 +83,8 @@
       const email = document.getElementById('email').value;
       
       await createUser(name, email);
-      fetchUsers();
     });
+
     fetchUsers();
   </script>
 </body>
